@@ -10,7 +10,20 @@ queue = sqs.get_queue_by_name(QueueName='movie-load.fifo')
 print(queue.url)
 
 
-def generate_movies(movie_count):
+class DataLoadMessage:
+    def __init__(self,
+                 job_id: str,
+                 payload: str
+                 ):
+        self.job_id = job_id
+        self.payload = payload
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
+
+
+def generate_movies(job_id, movie_count):
     movies_payload = []
 
     for counter in range(movie_count):
@@ -37,11 +50,12 @@ def main():
 
     # generate
     job_id = str(uuid.uuid4())
-    movies_payloads = generate_movies(1)
+    movies_payloads = generate_movies(job_id, 1)
 
     # send message to queue
     for movies_payload in movies_payloads:
-        enqueue_message(job_id, json.dumps(movies_payload, sort_keys=True, indent=4))
+        data_load_message = DataLoadMessage(job_id, json.dumps(movies_payload))
+        enqueue_message(job_id, data_load_message.toJSON())
 
     # receive message
     response = sqs_client.receive_message(
