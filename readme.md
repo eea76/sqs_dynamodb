@@ -1,5 +1,5 @@
 ### In an effort to learn how various AWS services work, I'm going to make a small project that generates data, sends that data to an AWS SQS queue, and then receives that data in the form of a message, and then writes that message to a DynamoDB table
-
+#### This project was made with Python 3.7. No guarantees with any version of Python 2.
 ##### Using Python I'll just generate some fake movies, which will have the following attributes:
 - title
 - year of release
@@ -16,7 +16,8 @@
 - Download and install the Docker client
 - After starting Docker (it just runs in the background; see the menu bar icon to verify), initialize a virtualenv. An IDE like PyCharm/IntelliJ can automatically create a virtualenv, or to create one manually do `virtualenv -p python3 venv` while in the project root.
 - Activate the virtualenv if the IDE hasn't already: `source venv/bin/activate`
-- install requirements: `pip3 install -r requirements.txt`
+- Install requirements: `pip3 install -r requirements.txt`
+
 
 #### Create Resources
 - We're using localstack so we can do all this locally; otherwise we would need to create resources in AWS, which would incur usage costs. 
