@@ -24,7 +24,8 @@
 - Once everything is Ready, open localstack_setup.sh
 - In the console, run `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
 - This creates a SQS queue called movie-load, which is where we'll be sending and receiving messages (ie the generated movies)
-- (DYNAMODB COMMAND)
+- To create the dynamo table, run `aws --endpoint-url=http://localhost:4569 dynamodb create-table --table-name movie-job-information --attribute-definitions AttributeName=job_id,AttributeType=S --key-schema AttributeName=job_id,KeyType=HASH --billing-mode PAY_PER_REQUEST &> /dev/null`
+- This creates a table named movie-job-information, with job_id as the table's primary key
 - (S3 BUCKET COMMAND)
 
 #### Run program
