@@ -46,7 +46,7 @@
 
 ##### Receive messages from the queue
 - call the `dequeue_message` function, which returns all the messages in the queue (up to 10)
-- What happens if there are more than 10 messages in the queue? 
+- What if there are more than 10 messages in the queue? How do we retrieve those? 
 - Good question. I do not know.
 
 ##### Write the message to DynamoDB
@@ -58,7 +58,8 @@
 ##### Delete the message from the queue
 - after the message has been added to the dynamo table, call the `delete_item` method
 - loop through the messages and if a message's MessageGroupId matches the job_id, delete it
-- I'm not sure yet what gets deleted from the here: the entire message? 
+- I'm not sure yet what gets deleted from the here: the entire message?
+- This part is actually a mess and doesn't work yet.  
 
 ##### Query the database
 - If you want to ensure the messages made it from the queue to the Dynamo table (as well as seeing everything other table data), you can perform a scan operation in the console:
