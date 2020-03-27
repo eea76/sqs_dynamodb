@@ -60,3 +60,8 @@
 - loop through the messages and if a message's MessageGroupId matches the job_id, delete it
 - I'm not sure yet what gets deleted from the here: the entire message? 
 
+##### Query the database
+- If you want to ensure the messages made it from the queue to the Dynamo table (as well as seeing everything other table data), you can perform a scan operation in the console:
+- `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569`
+- Alternatively you can output the result to a JSON file which will probably be easier to read:
+- `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569 > table_scan.json`
