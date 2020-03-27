@@ -4,9 +4,11 @@ import json
 class DataLoadMessage:
     def __init__(self,
                  job_id: str,
+                 movie_id: str,
                  payload: str
                  ):
         self.job_id = job_id
+        self.movie_id = movie_id
         self.payload = payload
 
     def toJSON(self):
