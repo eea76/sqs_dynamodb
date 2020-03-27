@@ -5,19 +5,17 @@ from datetime import datetime
 
 from data_load_message import DataLoadMessage
 from generate import generate_movies
-from dynamo_item import DynamoItem
 from queueing import enqueue_message, dequeue_message, delete_message
+from write_to_dynamo import write_to_dynamo
 from delete_item import delete_item
 
 sqs = boto3.resource('sqs', region_name='us-west-2', endpoint_url="http://localhost:4576")
 sqs_client = boto3.client('sqs', region_name="us-west-2", endpoint_url="http://localhost:4576")
 queue = sqs.get_queue_by_name(QueueName='movie-load.fifo')
 
-dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:4569")
-dynamodb_client = boto3.client('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:4569")
-
 print(f"Queue URL: {queue.url}")
-print("Table name: movie-job-information")
+table_name = "movie-job-information"
+print(f"Table name: {table_name}")
 
 
 def main():
@@ -37,17 +35,10 @@ def main():
     messages = dequeue_message(queue, sqs_client)
 
     # write to database
-    table_name = "movie-job-information"
-    job_table = dynamodb.Table(table_name)
-
-    dynamo_item = DynamoItem(job_id, messages)
-    dynamo_item = dynamo_item.to_dynamo_object()
-    job_table.put_item(Item=dynamo_item)
-
+    write_to_dynamo(table_name, job_id, messages)
 
     # delete message from queue
     delete_message(queue, sqs_client, messages, job_id)
-
 
     # delete a job from the table
     # delete_item(job_table, table_name)

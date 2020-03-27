@@ -26,15 +26,15 @@
 
 ---
 
-#### This section is a step-by-step explanation of how to get this working
-##### Project Setup
+### This section is a step-by-step explanation of how to get this working
+#### Project Setup
 - Because this project utilizes localstack, it also requires Docker: https://www.docker.com/
 - Download and install the Docker client
 - After starting Docker (it just runs in the background; see the menu bar icon to verify), initialize a virtualenv. An IDE like PyCharm/IntelliJ can automatically create a virtualenv, or to create one manually do `virtualenv -p python3 venv` while in the project root.
 - Activate the virtualenv if the IDE hasn't already: `source venv/bin/activate`
 - install requirements: `pip3 install -r requirements.txt`
 
-##### Create Resources
+#### Create Resources
 - Run `localstack start`
 - Once everything is Ready, open localstack_setup.sh
 - In the console, run `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
@@ -42,11 +42,32 @@
 - (DYNAMODB COMMAND)
 - (S3 BUCKET COMMAND)
 
-##### Run program
-- main.py initializes some resources using boto3
-- generate
-- DataLoadMessage class
-- enqueue
-- dequeue
-- delete
+#### Run program
+##### Generate
+- Initialize the SQS resource using boto3: get the queue named `movie-load.fifo`
+- Create a job_id and specify the number of movies to generate
+- The `generate_movies` method creates the number of movies specified (one dictionary per movie) and returns them in a list called `movies_payloads`
+
+##### Send the movies to the queue
+- For each movies_payload in movies_payloads: 
+    - create a movie_id
+    - create an instance of the DataLoadMessage object (data_load_message), which takes as parameters:
+        - the job_id
+        - the movie_id
+        - a json dump of the movies_payload
+    - call the `enqueue_message` function, which sends the message to the queue
+
+##### Receive messages from the queue
+- call the `dequeue_message` function, which returns all the messages in the queue (up to 10)
+
+##### Write the message to DynamoDB
+- call the `write_to_dynamo` function
+    - assign `dynamo_item` to an instance of DynamoItem, which takes job_id and the messages that were returned from dequeue_message
+        - sets the started_on, job_id, and message_body
+    - writes this item to the table
+    
+##### Delete the message from the queue
+- after the message has been added to the dynamo table, call the `delete_item` method
+- loop through the messages and if a message's MessageGroupId matches the job_id, delete it
+- I'm not sure yet what gets deleted from the here: the entire message? 
 
