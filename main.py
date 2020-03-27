@@ -1,6 +1,7 @@
 import boto3
 import uuid
 import json
+from datetime import datetime
 
 from data_load_message import DataLoadMessage
 from generate import generate_movies
@@ -23,7 +24,7 @@ def main():
 
     # generate
     job_id = str(uuid.uuid4())
-    movies_to_generate = 1
+    movies_to_generate = 2
     movies_payloads = generate_movies(movies_to_generate)
 
     # send message to queue
@@ -41,13 +42,12 @@ def main():
 
     dynamo_item = DynamoItem(job_id, messages)
     dynamo_item = dynamo_item.to_dynamo_object()
-    # job_table.put_item(Item=dynamo_item)
+    job_table.put_item(Item=dynamo_item)
 
 
     # delete message from queue
     delete_message(queue, sqs_client, messages, job_id)
 
-    # update dynamo_item in db with completed time
 
     # delete a job from the table
     # delete_item(job_table, table_name)

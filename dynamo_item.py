@@ -17,7 +17,6 @@ class DynamoItem:
         self.job_id = job_id
         self.started_on = str(datetime.utcnow())
         self.message_body = message_body
-        self.completed_on = None
 
     def to_dynamo_object(self):
         return item_to_dict(self)
