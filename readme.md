@@ -21,7 +21,7 @@
 #### Create Resources
 - We're using localstack so we can do all this locally; otherwise we would need to create resources in AWS, which would incur usage costs. 
 - Run `localstack start`
-- Once everything is Ready, open localstack_setup.sh
+- Once everything is Ready, open localstack_setup.sh, which is a list of shell script commands. If your IDE supports .sh scripts you can just run this file, or copy the commands from it and run them individually in your terminal
 - In the console, run `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
 - This creates a SQS queue called movie-load, which is where we'll be sending and receiving messages (ie the generated movies)
 - To create the dynamo table, run `aws --endpoint-url=http://localhost:4569 dynamodb create-table --table-name movie-job-information --attribute-definitions AttributeName=job_id,AttributeType=S --key-schema AttributeName=job_id,KeyType=HASH --billing-mode PAY_PER_REQUEST &> /dev/null`
@@ -45,6 +45,8 @@
 
 ##### Receive messages from the queue
 - call the `dequeue_message` function, which returns all the messages in the queue (up to 10)
+- What happens if there are more than 10 messages in the queue? 
+- Good question. I do not know.
 
 ##### Write the message to DynamoDB
 - call the `write_to_dynamo` function
