@@ -63,7 +63,7 @@
 - This part is actually a mess and doesn't work yet.  
 
 ##### Query the database
-- If you want to ensure the messages made it from the queue to the Dynamo table (as well as seeing everything other table data), you can perform a scan operation in the console:
+- If you want to ensure the messages made it from the queue to the Dynamo table (as well as seeing other table data), you can perform a scan operation in the console:
 - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569`
 - Alternatively you can output the result to a JSON file which will probably be easier to read:
 - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569 > table_scan.json`
