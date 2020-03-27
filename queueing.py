@@ -7,6 +7,7 @@ def enqueue_message(sqs_client, queue, job_id, message_body):
                             MessageBody=message_body,
                             MessageGroupId=job_id,
                             MessageDeduplicationId=str(uuid.uuid4()))
+    return True
 
 
 def dequeue_message(queue, sqs_client):
@@ -27,3 +28,4 @@ def delete_message(queue, sqs_client, messages, job_id):
             sqs_client.delete_message(QueueUrl=queue.url,
                                       ReceiptHandle=message["ReceiptHandle"]
                                       )
+    return True

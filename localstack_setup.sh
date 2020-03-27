@@ -8,7 +8,7 @@ aws --endpoint-url=http://localhost:4569 dynamodb list-tables
 
 
 # copy a file named movies.json to the local directory just to see what was generated (from the script through the queue and into the bucket)
-# aws s3 mv s3://movie-bucket/movies.json .  --endpoint-url=http://localhost:4572
+# aws s3 mv s3://movie-bucket/movies.json . --endpoint-url=http://localhost:4572
 # list contents of specified bucket
 # aws s3 ls s3://movie-bucket --endpoint-url=http://localhost:4572
 
