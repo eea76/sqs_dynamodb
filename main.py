@@ -23,7 +23,7 @@ class DataLoadMessage:
                           sort_keys=True, indent=4)
 
 
-def generate_movies(job_id, movie_count):
+def generate_movies(movie_count):
     movies_payload = []
 
     for counter in range(movie_count):
@@ -50,7 +50,8 @@ def main():
 
     # generate
     job_id = str(uuid.uuid4())
-    movies_payloads = generate_movies(job_id, 1)
+    movies_to_generate = 1
+    movies_payloads = generate_movies(movies_to_generate)
 
     # send message to queue
     for movies_payload in movies_payloads:

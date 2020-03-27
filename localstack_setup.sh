@@ -1,5 +1,5 @@
 # queue commands
-aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo  --attributes "FifoQueue=true"
+aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"
 aws sqs list-queues --endpoint-url=http://localhost:4576
 
 # create local table and list it
