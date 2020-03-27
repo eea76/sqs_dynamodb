@@ -60,6 +60,7 @@ def main():
     # receive message
     response = sqs_client.receive_message(
         QueueUrl=queue.url,
+        AttributeNames=["All"],
         MaxNumberOfMessages=10,
         VisibilityTimeout=10,
         WaitTimeSeconds=10,
@@ -67,7 +68,14 @@ def main():
 
     messages = response.get("Messages")
 
-    print(messages)
+    # delete message from queue
+    for message in messages:
+        if message["Attributes"]["MessageGroupId"] == job_id:
+            sqs_client.delete_message(QueueUrl=queue.url,
+                                      ReceiptHandle=message["ReceiptHandle"]
+                                      )
+
+
 
 if __name__ == '__main__':
     main()
