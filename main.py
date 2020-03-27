@@ -22,7 +22,7 @@ def main():
 
     # generate
     job_id = str(uuid.uuid4())
-    movies_to_generate = 2
+    movies_to_generate = 1
     movies_payloads = generate_movies(movies_to_generate)
 
     # send message to queue

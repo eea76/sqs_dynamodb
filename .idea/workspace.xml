@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f2f7267-b8f4-4b64-8d2a-be7d0c5007e3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/write_to_dynamo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,22 +95,22 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1659" height="273" key="GridCell.Tab.0.bottom" timestamp="1585341410605">
+    <state width="1659" height="273" key="GridCell.Tab.0.bottom" timestamp="1585345285675">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1659" height="273" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585341410605" />
-    <state width="1659" height="273" key="GridCell.Tab.0.center" timestamp="1585341410603">
+    <state width="1659" height="273" key="GridCell.Tab.0.bottom/0.23.1680.1027@0.23.1680.1027" timestamp="1585345285675" />
+    <state width="1659" height="273" key="GridCell.Tab.0.center" timestamp="1585345285674">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1659" height="273" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585341410603" />
-    <state width="1659" height="273" key="GridCell.Tab.0.left" timestamp="1585341410602">
+    <state width="1659" height="273" key="GridCell.Tab.0.center/0.23.1680.1027@0.23.1680.1027" timestamp="1585345285674" />
+    <state width="1659" height="273" key="GridCell.Tab.0.left" timestamp="1585345285674">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1659" height="273" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585341410602" />
-    <state width="1659" height="273" key="GridCell.Tab.0.right" timestamp="1585341410604">
+    <state width="1659" height="273" key="GridCell.Tab.0.left/0.23.1680.1027@0.23.1680.1027" timestamp="1585345285674" />
+    <state width="1659" height="273" key="GridCell.Tab.0.right" timestamp="1585345285674">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
-    <state width="1659" height="273" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585341410604" />
+    <state width="1659" height="273" key="GridCell.Tab.0.right/0.23.1680.1027@0.23.1680.1027" timestamp="1585345285674" />
     <state width="1659" height="337" key="GridCell.Tab.1.bottom" timestamp="1585341377651">
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
@@ -137,16 +135,5 @@
       <screen x="0" y="23" width="1680" height="1027" />
     </state>
     <state width="840" height="503" key="XDebugger.FullValuePopup/0.23.1680.1027@0.23.1680.1027" timestamp="1585335664478" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>37</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

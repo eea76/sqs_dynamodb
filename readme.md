@@ -1,28 +1,12 @@
-### In an effort to learn how various AWS services work, I'm going to make a small project that:
+### In an effort to learn how various AWS services work, I'm going to make a small project that generates data, sends that data to an AWS SQS queue, and then receives that data in the form of a message, and then writes that message to a DynamoDB table
 
-#### Generates data
 ##### Using Python I'll just generate some fake movies, which will have the following attributes:
 - title
 - year of release
 - actor
 - director
 
-#### Sends that data to a SQS message queue
-- should it just be a dictionary of the generated data?
-- one message = a job_id + one iteration of generated data?
-- verify the queue contains the data
-
-#### Pulls data from the queue
-- after data has been generated and loaded onto the queue, pull it off
-- delete the messages from the queue
-- verify the queue is empty
-
-#### I don't quite understand why we even need this queue if we're going to pull data off of it right after we've put it on. Why not just skip the queue entirely and deal directly with the data? This question proves I do not understand the purpose of queues. This is part of the reason I'm making this project in the first place: to understand the utility of QUEUES.
-
-#### Writes data to a DynamoDB table
-- to do
-
-##### Optional but do it anyway: write generated JSON to an S3 bucket
+##### Optional: write the generated JSON to an S3 bucket
 
 ---
 
