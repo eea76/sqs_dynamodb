@@ -12,13 +12,14 @@
 
 ### This section is a step-by-step explanation of how to get this working
 #### Project Setup
-- Because this project utilizes localstack, it also requires Docker: https://www.docker.com/
+- Because this project utilizes the python package localstack (which creates local AWS resources), it also requires Docker: https://www.docker.com/
 - Download and install the Docker client
 - After starting Docker (it just runs in the background; see the menu bar icon to verify), initialize a virtualenv. An IDE like PyCharm/IntelliJ can automatically create a virtualenv, or to create one manually do `virtualenv -p python3 venv` while in the project root.
 - Activate the virtualenv if the IDE hasn't already: `source venv/bin/activate`
 - install requirements: `pip3 install -r requirements.txt`
 
 #### Create Resources
+- We're using localstack so we can do all this locally; otherwise we would need to create resources in AWS, which would incur usage costs. 
 - Run `localstack start`
 - Once everything is Ready, open localstack_setup.sh
 - In the console, run `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
