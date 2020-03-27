@@ -12,7 +12,7 @@
 
 ### This section is a step-by-step explanation of how to get this working
 #### Project Setup
-- Because this project utilizes the python package localstack (which creates local AWS resources), it also requires Docker: https://www.docker.com/
+- Because this project utilizes the python package `localstack` (which creates local AWS resources), it also requires Docker: https://www.docker.com/
 - Download and install the Docker client
 - After starting Docker (it just runs in the background; see the menu bar icon to verify), initialize a virtualenv. An IDE like PyCharm/IntelliJ can automatically create a virtualenv, or to create one manually do `virtualenv -p python3 venv` while in the project root.
 - Activate the virtualenv if the IDE hasn't already: `source venv/bin/activate`
