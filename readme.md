@@ -17,6 +17,8 @@
 - delete the messages from the queue
 - verify the queue is empty
 
+#### I don't quite understand why we even need this queue if we're going to pull data off of it right after we've put it on. Why not just skip the queue entirely and deal directly with the data? This question proves I do not understand the purpose of queues. This is part of the reason I'm making this project in the first place: to understand the utility of QUEUES.
+
 #### Writes data to a DynamoDB table
 - to do
 
