@@ -23,11 +23,12 @@
 - We're using localstack so we can do all this locally; otherwise we would need to create resources in AWS, which would incur usage costs. 
 - Run `localstack start`
 - Once everything is Ready, open localstack_setup.sh, which is a list of shell script commands. If your IDE supports .sh scripts you can just run this file, or copy the commands from it and run them individually in your terminal
-- In the console, run `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
-- This creates a SQS queue called movie-load, which is where we'll be sending and receiving messages (ie the generated movies)
-- To create the dynamo table, run `aws --endpoint-url=http://localhost:4569 dynamodb create-table --table-name movie-job-information --attribute-definitions AttributeName=job_id,AttributeType=S --key-schema AttributeName=job_id,KeyType=HASH --billing-mode PAY_PER_REQUEST &> /dev/null`
-- This creates a table named movie-job-information, with job_id as the table's primary key
-- (S3 BUCKET COMMAND)
+    - `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
+        - This creates a SQS queue called movie-load, which is where we'll be sending and receiving messages (ie the generated movies)
+    - `aws --endpoint-url=http://localhost:4569 dynamodb create-table --table-name movie-job-information --attribute-definitions AttributeName=job_id,AttributeType=S --key-schema AttributeName=job_id,KeyType=HASH --billing-mode PAY_PER_REQUEST &> /dev/null`
+        - This creates a table named movie-job-information, with job_id as the table's primary key
+    - `aws --endpoint-url=http://localhost:4572 s3 mb s3://movie-bucket`
+        - This creates a bucket called `movie-bucket`
 
 #### Run program
 ##### Generate
