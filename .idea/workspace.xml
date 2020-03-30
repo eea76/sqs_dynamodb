@@ -148,15 +148,4 @@
     </state>
     <state width="840" height="503" key="XDebugger.FullValuePopup/0.23.1680.1027@0.23.1680.1027" timestamp="1585335664478" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>44</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
 </project>

@@ -1,4 +1,3 @@
-import boto3
 import uuid
 import json
 from datetime import datetime
@@ -9,14 +8,7 @@ from queueing import enqueue_message, dequeue_message, delete_message
 from write_to_dynamo import write_to_dynamo
 from delete_item import delete_item
 
-sqs = boto3.resource('sqs', region_name='us-west-2', endpoint_url="http://localhost:4576")
-sqs_client = boto3.client('sqs', region_name="us-west-2", endpoint_url="http://localhost:4576")
-queue = sqs.get_queue_by_name(QueueName='movie-load.fifo')
 
-s3_client = boto3.client('s3', region_name="us-west-2", endpoint_url="http://localhost:4572")
-bucket_name = "movie-bucket"
-
-print(f"Queue URL: {queue.url}")
 table_name = "movie-job-information"
 print(f"Table name: {table_name}")
 
@@ -32,23 +24,19 @@ def main():
     for movies_payload in movies_payloads:
         movie_id = str(uuid.uuid4())
         data_load_message = DataLoadMessage(job_id, movie_id, json.dumps(movies_payload))
-        enqueue_message(sqs_client, queue, job_id, data_load_message.toJSON())
+        enqueue_message(job_id, data_load_message.toJSON())
 
     # receive message
-    messages = dequeue_message(queue, sqs_client)
+    messages = dequeue_message()
 
     # write to database
     # write_to_dynamo(table_name, job_id, messages)
 
     # write payload to s3
-    for message in messages:
-        message = json.loads(message["Body"])
-        s3_client.put_object(Body=json.dumps(message).encode('utf-8'),
-                             Key=f"movies-{job_id}.json",
-                             Bucket=bucket_name)
+
 
     # delete message from queue
-    delete_message(queue, sqs_client, messages, job_id)
+    delete_message(messages, job_id)
 
     # delete a job from the table
     # delete_item(job_table, table_name)
