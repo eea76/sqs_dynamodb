@@ -4,20 +4,17 @@ from datetime import datetime
 
 from data_load_message import DataLoadMessage
 from generate import generate_movies
+from s3_operations import write_to_s3
 from queueing import enqueue_message, dequeue_message, delete_message
 from write_to_dynamo import write_to_dynamo
 from delete_item import delete_item
-
-
-table_name = "movie-job-information"
-print(f"Table name: {table_name}")
 
 
 def main():
 
     # generate
     job_id = str(uuid.uuid4())
-    movies_to_generate = 1
+    movies_to_generate = 10
     movies_payloads = generate_movies(movies_to_generate)
 
     # send message to queue
@@ -30,19 +27,19 @@ def main():
     messages = dequeue_message()
 
     # write to database
-    # write_to_dynamo(table_name, job_id, messages)
+    write_to_dynamo(job_id, messages)
 
     # write payload to s3
-
+    write_to_s3(messages, job_id)
 
     # delete message from queue
+    # todo: only do this if we've verified the messages made it into the db and the bucket
     delete_message(messages, job_id)
 
     # delete a job from the table
     # delete_item(job_table, table_name)
 
 
-
 if __name__ == '__main__':
     main()
-    print('thanks')
+    print('all done thanks')

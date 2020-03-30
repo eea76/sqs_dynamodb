@@ -1,11 +1,32 @@
 import boto3
-
-from dynamo_item import DynamoItem
+from datetime import datetime
 
 dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:4569")
+table_name = "movie-job-information"
+print(f"Table name: {table_name}")
 
 
-def write_to_dynamo(table_name, job_id, messages):
+def item_to_dict(item):
+    i = vars(item) if not isinstance(item, dict) else item
+    for key, val in i.items():
+        if type(val) == set:
+            i[key] = val
+        elif type(val) == dict or "to_dynamo_object" in dir(val):
+            i[key] = item_to_dict(val)
+    return i
+
+
+class DynamoItem:
+    def __init__(self, job_id, message_body):
+        self.job_id = job_id
+        self.started_on = str(datetime.utcnow())
+        self.message_body = message_body
+
+    def to_dynamo_object(self):
+        return item_to_dict(self)
+
+
+def write_to_dynamo(job_id, messages):
     dynamo_item = DynamoItem(job_id, messages)
     dynamo_item = dynamo_item.to_dynamo_object()
     job_table = dynamodb.Table(table_name)
