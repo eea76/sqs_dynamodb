@@ -23,9 +23,24 @@ def dequeue_message(queue, sqs_client):
 
 
 def delete_message(queue, sqs_client, messages, job_id):
+    message_count = 0
+    print(f"job_id: {job_id}")
     for message in messages:
+        print("message:")
+        print(message)
+        print()
+        print('MessageGroupId')
+        print(message["Attributes"]["MessageGroupId"])
         if message["Attributes"]["MessageGroupId"] == job_id:
             sqs_client.delete_message(QueueUrl=queue.url,
                                       ReceiptHandle=message["ReceiptHandle"]
                                       )
+        else:
+            print("there are messages from an older job in here")
+        message_count += 1
+
+        print()
+        print('----')
+        print()
+    print(f"messages: {message_count}")
     return True

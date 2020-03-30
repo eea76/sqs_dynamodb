@@ -13,6 +13,9 @@ sqs = boto3.resource('sqs', region_name='us-west-2', endpoint_url="http://localh
 sqs_client = boto3.client('sqs', region_name="us-west-2", endpoint_url="http://localhost:4576")
 queue = sqs.get_queue_by_name(QueueName='movie-load.fifo')
 
+s3_client = boto3.client('s3', region_name="us-west-2", endpoint_url="http://localhost:4572")
+bucket_name = "movie-bucket"
+
 print(f"Queue URL: {queue.url}")
 table_name = "movie-job-information"
 print(f"Table name: {table_name}")
@@ -35,7 +38,14 @@ def main():
     messages = dequeue_message(queue, sqs_client)
 
     # write to database
-    write_to_dynamo(table_name, job_id, messages)
+    # write_to_dynamo(table_name, job_id, messages)
+
+    # write payload to s3
+    for message in messages:
+        message = json.loads(message["Body"])
+        s3_client.put_object(Body=json.dumps(message).encode('utf-8'),
+                             Key=f"movies-{job_id}.json",
+                             Bucket=bucket_name)
 
     # delete message from queue
     delete_message(queue, sqs_client, messages, job_id)
@@ -47,3 +57,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print('thanks')
