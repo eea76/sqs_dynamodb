@@ -6,7 +6,7 @@ from data_load_message import DataLoadMessage
 from generate import generate_movies
 from s3_operations import write_to_s3
 from queueing import enqueue_message, dequeue_message, delete_message
-from write_to_dynamo import write_to_dynamo
+from dynamo_operations import write_to_dynamo
 from delete_item import delete_item
 
 
@@ -14,7 +14,7 @@ def main():
 
     # generate
     job_id = str(uuid.uuid4())
-    movies_to_generate = 10
+    movies_to_generate = 1
     movies_payloads = generate_movies(movies_to_generate)
 
     # send message to queue
@@ -34,7 +34,11 @@ def main():
 
     # delete message from queue
     # todo: only do this if we've verified the messages made it into the db and the bucket
-    delete_message(messages, job_id)
+    processed_messages = delete_message(messages, job_id)
+
+    for k, v in processed_messages.items():
+        print(f"{k}: {v}")
+
 
     # delete a job from the table
     # delete_item(job_table, table_name)
@@ -42,4 +46,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print('all done thanks')
+    print('\nall done thanks')

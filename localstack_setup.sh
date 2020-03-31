@@ -20,3 +20,6 @@ aws --endpoint-url=http://localhost:4572 s3 mb s3://movie-bucket
 
 # receives messages from the specified queue (aka reads queue contents)
 # aws sqs receive-message --queue-url http://localhost:4576/queue/movie-load.fifo --endpoint-url=http://localhost:4576 --max-number-of-messages 10
+
+# purges the messages from the specified queue
+# aws sqs purge-queue --queue-url http://localhost:4576/queue/movie-load.fifo --endpoint-url=http://localhost:4576
