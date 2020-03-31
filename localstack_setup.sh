@@ -23,3 +23,5 @@ aws --endpoint-url=http://localhost:4572 s3 mb s3://movie-bucket
 
 # purges the messages from the specified queue
 # aws sqs purge-queue --queue-url http://localhost:4576/queue/movie-load.fifo --endpoint-url=http://localhost:4576
+
+007c8be6-8e37-435f-9a8c-37092cb56af1
