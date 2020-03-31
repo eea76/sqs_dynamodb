@@ -5,7 +5,7 @@ from datetime import datetime
 from data_load_message import DataLoadMessage
 from generate import generate_movies
 from s3_operations import write_to_s3
-from queueing import send_messages_to_queue, dequeue_message, delete_message, process_messages
+from queueing import send_messages_to_queue, process_messages
 from dynamo_operations import write_to_dynamo
 from delete_item import delete_item
 
@@ -15,7 +15,7 @@ def main():
     # generate
     job_id = str(uuid.uuid4())
     print(job_id)
-    movies_to_generate = 20
+    movies_to_generate = 100
     movies_payloads = generate_movies(movies_to_generate)
 
     # send message to queue
@@ -28,16 +28,12 @@ def main():
     # https://alexwlchan.net/2018/01/downloading-sqs-queues/
     messages = process_messages(movies_to_generate)
 
+    print(messages)
     # write to database
     write_to_dynamo(job_id, messages)
 
     # write payload to s3
-    # todo currently it's overwriting every message and only putting the last item of the message into the bucket
     write_to_s3(messages, job_id)
-
-
-    # for k, v in processed_messages.items():
-    #     print(f"{k}: {v}")
 
 
     # delete a job from the table
