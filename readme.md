@@ -57,13 +57,7 @@
 ##### Receive messages from the queue
 - Much of this function was taken from here: https://alexwlchan.net/2018/01/downloading-sqs-queues/
 - Call the `process_messages` function and pass the `number_of_movies` argument as a parameter (it's used in the function to do progress-related calculations)
-- Receive messages from the specified queue (up to 10 messages can be retrieved at once)
-    - iterate through the response object and add its `Messages` to the `messages` list
-    - if `Messages` does not exist in the `response` object that means all the messages have been deleted, and the while loop will be broken and the function will return
-    - creates a list called `entries` consisting of up to 10 dictionaries each with a MessageID/ReceiptHandle pair
-    - all the messages in the `entries` list have been put in the `messages` list, so we can safely delete these from the queue
-        - call the `delete_message_batch` method, and delete the messages whose MessageIds currently are in `entries`
-    - return to to the top of the loop and repeat this again until no more messages can be retrieved from the queue
+- Receive messages from the specified queue (up to 10 messages can be retrieved at a time)
 - Return `messages` list, which contains all processed messages (aka all messages that have been received and deleted from the queue)
 
 
