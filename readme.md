@@ -50,34 +50,32 @@
 - Alternatively you can specify the script path in PyCharm/IntelliJ as `/main.py` and then run the program from there. Way easier than using the terminal.
 
 ##### Generate
-- Initialize the SQS resource using boto3: get the queue named `movie-load.fifo`
-- Create a job_id and specify the number of movies to generate
+- A job_id is created
+- Specify the number of movies to generate (please don't do anything insane like 1000; it will blow up the database and could also potentially screw up SQS)
 - The `generate_movies` method creates the number of movies specified (one dictionary per movie) and returns them in a list called `movies_payloads`
 
 ##### Send the movies to the queue
 - For each movies_payload in movies_payloads: 
-    - create a movie_id
-    - create an instance of the DataLoadMessage object (`data_load_message`), which takes as parameters:
-        - the job_id
-        - the movie_id
-        - a json dump of the movies_payload
-    - call the `send_messages_to_queue` function, which sends the message to the queue
+    - a unique movie_id is created
+    - an instance of the DataLoadMessage object is created (`data_load_message`)
+    - the `send_messages_to_queue` function is called
 
 ##### Receive messages from the queue
 - Much of this function was taken from here: https://alexwlchan.net/2018/01/downloading-sqs-queues/
 - Call the `process_messages` function
 - Receive messages from the specified queue (up to 10 messages can be retrieved at a time)
+    - If more than 10 are in the queue, we pull 10 at a time until it's empty
 - Return `messages` list, which contains all processed messages (aka all messages that have been received and deleted from the queue)
 
 
 ##### Write the message to DynamoDB
-- call the `write_to_dynamo` function
-    - assign `dynamo_item` to an instance of DynamoItem, which takes job_id and the messages that were returned from `process_messages`
-    - writes this item to the table
-    - items cannot be more than 400kb each (Dynamo limitation).
-        - to do: figure out how to break up items that are > 400kb
-            - how?
-                - no idea yet
+- Call the `write_to_dynamo` function
+    - Assign `dynamo_item` to an instance of DynamoItem
+    - Writes this item to the table
+    - Items cannot be more than 400kb each (Dynamo limitation).
+        - To do: figure out how to break up items that are > 400kb
+            - How?
+                - No idea yet
     
 
 ##### Write the message payload to an S3 bucket
