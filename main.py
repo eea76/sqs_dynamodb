@@ -26,7 +26,7 @@ def main():
     received_messages = process_messages(movies_to_generate)
 
     # write to database
-    write_to_dynamo(table_name, job_id, received_messages)
+    write_to_dynamo(job_id, received_messages)
 
     # write payload to s3
     write_to_s3(received_messages, job_id)

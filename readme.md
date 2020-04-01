@@ -5,7 +5,7 @@
     - actor
     - director
 - sends that data to an AWS SQS queue
-- receives that data in the form of a queue message 
+- receives that data in the form of a queue message
 - writes that message to a DynamoDB table
 - writes the generated payload to an s3 bucket
 #### This project was made with Python 3.7. No guarantees with any version of Python 2.
@@ -18,6 +18,7 @@
 #### Install AWS CLI
 - Do you have AWS CLI installed?
 - Type `aws` in the command line. If you see `command not found`, you don't have it.
+    - run `aws --version` to make sure you have version 2 (version 1 won't work with this project)
 - Get it here: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 - Then run `aws configure` and provide your AWS Access Key, AWS Secret Access Key, and region
 - If you don't know where this info is stored, you'll have to retrieve/generate it from IAM in the AWS console: https://console.aws.amazon.com/iam
@@ -31,7 +32,7 @@
 
 
 #### Create Resources
-- We're using localstack so we can do all this locally; otherwise we would need to create resources in AWS, which would incur usage costs. 
+- We're using localstack so we can do all this locally; otherwise we would need to create resources in AWS, which would incur usage costs.
 - Run `localstack start`
 - Once everything is Ready, open localstack_setup.sh, which is a list of shell script commands. If your IDE supports .sh scripts you can just run this file, or copy each command from it and run them individually in your terminal
     - `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
@@ -55,7 +56,7 @@
 - The `generate_movies` method creates the number of movies specified (one dictionary per movie) and returns them in a list called `movies_payloads`
 
 ##### Send the movies to the queue
-- For each movies_payload in movies_payloads: 
+- For each movies_payload in movies_payloads:
     - a unique movie_id is created
     - an instance of the DataLoadMessage object is created (`data_load_message`)
     - the `send_messages_to_queue` function is called
@@ -76,7 +77,7 @@
         - To do: figure out how to break up items that are > 400kb
             - How?
                 - No idea yet
-    
+
 
 ##### Write the message payload to an S3 bucket
 - We can write the generated data to an S3 bucket as json
@@ -85,7 +86,7 @@
 
 ##### Next steps: Implement dead-letter queues in the case of message failure
 - Figure it out
-  
+
 ---
 ### Optional stuff with the `aws` cli
 
@@ -107,7 +108,7 @@
     - replace `[desired job_id]` with the job_id
     - this downloads the file to the current directory (`.`):
     - `aws s3 mv s3://movie-bucket/[desired job_id].json . --endpoint-url=http://localhost:4572`
-    
+
 ##### Queues
 - List queues:
     - `aws sqs list-queues --endpoint-url=http://localhost:4576`
