@@ -15,7 +15,7 @@
 
 ### This section is a step-by-step explanation of how to get this working
 #### Project Setup
-- First make sure you have the aws cli. Type `awi` in your terminal and if you get `command not found`, you'll have to install the cli from here: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+- First make sure you have the aws cli. Type `aws` in your terminal and if you get `command not found`, you'll have to install the cli from here: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 - Because this project utilizes the python package `localstack` (which creates local AWS resources), it also requires Docker: https://www.docker.com/
 - Download and install the Docker client (explaining Docker goes beyond the scope of this tiny project; resources online are plentiful and I don't really understand it myself. It's part of this containerization initiative lately. Worth learning)
 - After starting Docker (it just runs in the background; see the menu bar icon to verify), initialize a virtualenv. An IDE like PyCharm/IntelliJ can automatically create a virtualenv, or to create one manually do `virtualenv -p python3 venv` while in the project root.
