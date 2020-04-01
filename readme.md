@@ -24,7 +24,7 @@
 
 #### Docker and virtual environment
 - Because this project utilizes the python package `localstack` (which creates local AWS resources), it also requires Docker: https://www.docker.com/
-- Download and install the Docker client (explaining Docker goes beyond the scope of this tiny project; resources online are plentiful and I don't really understand it myself. It's part of this containerization idea which I really don't know much about yet)
+- Download and install the Docker client (explaining Docker goes beyond the scope of this tiny project; resources online are plentiful. It's part of this containerization idea which I really don't know much about yet)
 - After starting Docker (it just runs in the background; see the menu bar icon to verify), initialize a virtualenv. An IDE like PyCharm/IntelliJ can automatically create a virtualenv, or to create one manually do `virtualenv -p python3 venv` while in the project root.
 - Activate the virtualenv if the IDE hasn't done so already: `source venv/bin/activate`
 - Install requirements: `pip3 install -r requirements.txt`
