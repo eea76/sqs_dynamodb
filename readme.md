@@ -81,16 +81,20 @@
 - Figure it out
   
 ---
-#3## Optional stuff with the `aws` cli
+### Optional stuff with the `aws` cli
 
-#### Since this project keeps all created resources safely on your local machine (and therefore free of AWS usage costs), we don't have the benefit of the AWS web console, which is a GUI that lets you perform all kinds of individual tasks with AWS resources. Locally, we have to do this using the command line
-##### Query the database
+#### Since this project keeps all created resources safely on your local machine (and therefore free from AWS usage costs), we don't have the benefit of the AWS web console, which is a GUI that lets you perform all kinds of individual tasks with AWS resources. Locally, we have to do this using the command line
+##### Dynamo
+- List tables:
+    - `aws --endpoint-url=http://localhost:4569 dynamodb list-tables`
 - To see the messages that made it from the queue to the Dynamo table (as well as seeing other table data), you can perform a scan operation in the console:
     - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569`
-- Alternatively you can output the result to a JSON file which will probably be easier to read:
+- Alternatively you can output the result to a JSON file which will probably be easier to read (this can be a massive process depending on the table size):
     - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569 > table_scan.json`
 
-##### Inspect the bucket in s3
+##### S3
+- List buckets
+    - `aws --endpoint-url=http://localhost:4572 s3 ls`
 - To obtain a list of all the files in the bucket:
     - `aws s3 ls s3://movie-bucket --endpoint-url=http://localhost:4572`
 - To download a specific file from the bucket and see what the generated payload looks like:
@@ -98,6 +102,10 @@
     - this downloads the file to the current directory (`.`):
     - `aws s3 mv s3://movie-bucket/[desired job_id].json . --endpoint-url=http://localhost:4572`
     
-##### Purge the queue
+##### Queues
+- List queues:
+    - `aws sqs list-queues --endpoint-url=http://localhost:4576`
+- List messages in a queue (per the thorough SQS documentation, running this command may return an empty response even if you know for certain the queue is not empty; better to run this command programmatically)
+    - `aws sqs receive-message --queue-url http://localhost:4576/queue/movie-load.fifo --endpoint-url=http://localhost:4576 --max-number-of-messages 10`
 - You can purge the queue as a last ditch effort to ensure it's completely empty. A queue will typically be empty approx 60 seconds after the command is run:
     - `aws sqs purge-queue --queue-url http://localhost:4576/queue/movie-load.fifo --endpoint-url=http://localhost:4576`
