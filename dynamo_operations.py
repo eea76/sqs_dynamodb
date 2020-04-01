@@ -25,8 +25,6 @@ class DynamoItem:
 def write_to_dynamo(job_id, messages):
     dynamodb = boto3.resource('dynamodb', region_name='us-west-2', endpoint_url="http://localhost:4569")
     table_name = "movie-job-information"
-    print(f"Table name: {table_name}")
-
     dynamo_item = DynamoItem(job_id, messages)
     dynamo_item = dynamo_item.to_dynamo_object()
     job_table = dynamodb.Table(table_name)

@@ -12,8 +12,9 @@ def main():
 
     # generate
     job_id = str(uuid.uuid4())
-    print(job_id)
-    movies_to_generate = 2
+    print(f"\njob id: {job_id}")
+    movies_to_generate = 10
+    print(f"movies generated: {movies_to_generate}")
     movies_payloads = generate_movies(movies_to_generate)
 
     # send message to queue

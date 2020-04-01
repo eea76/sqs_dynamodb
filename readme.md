@@ -77,6 +77,9 @@
 - Calls the `write_to_s3` function and passes the received_messages (which were returned from the `process_message` function, remember), and the job_id
 - Loops through the messages, and for each message (which is its own dict), add its `Body`'s value to the `bucket_message` list
 - Put the `bucket_message` onto s3 in a json file with the naming convention `movies-[job_id].json`
+
+##### Next steps: Implement dead-letter queues in the case of message failure
+- Figure it out
   
 ---
 #### Optional stuff

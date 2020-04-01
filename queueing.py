@@ -8,8 +8,6 @@ sqs = boto3.resource('sqs', region_name='us-west-2', endpoint_url="http://localh
 sqs_client = boto3.client('sqs', region_name="us-west-2", endpoint_url="http://localhost:4576")
 queue = sqs.get_queue_by_name(QueueName='movie-load.fifo')
 
-print(f"Queue URL: {queue.url}")
-
 
 def send_messages_to_queue(job_id, message_body):
     queue_url = queue.url
@@ -24,7 +22,7 @@ def process_messages(number_of_movies):
 
     messages = []
     messages_processed = 0
-
+    print(f"messages to process: {number_of_movies}")
     while True:
 
         # todo: enable long-polling support
@@ -53,7 +51,8 @@ def process_messages(number_of_movies):
 
         messages_processed += len(entries)
         messages_remaining = number_of_movies - messages_processed
-        print(f"{messages_remaining} messages remaining")
+        print(f"\t{messages_remaining} messages remaining")
+
 
         # https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessageBatch.html
         response = sqs_client.delete_message_batch(
@@ -66,5 +65,5 @@ def process_messages(number_of_movies):
             raise RuntimeError(
                 f"Failed to delete messages: entries={entries!r} resp={response!r}"
             )
-
+    print(f"messages processed: {messages_processed}")
     return messages
