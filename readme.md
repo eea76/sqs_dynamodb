@@ -52,7 +52,7 @@
 
 ##### Generate
 - A job_id is created
-- Specify the number of movies to generate (please don't do anything insane like 1000; it will blow up the database and could also potentially screw up SQS)
+- Specify the number of movies to generate (please don't do anything insane like 1000; it will blow up the database and could also potentially screw up SQS - obviously AWS can handle payloads of messages much greater than 1000, but this project probably cannot until I build in some checks and safeguards)
 - The `generate_movies` method creates the number of movies specified (one dictionary per movie) and returns them in a list called `movies_payloads`
 
 ##### Send the movies to the queue
