@@ -1,5 +1,4 @@
 import uuid
-import json
 import boto3
 import logging
 
@@ -28,6 +27,8 @@ def process_messages(number_of_movies):
 
     while True:
 
+        # todo: enable long-polling support
+        # https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html
         response = sqs_client.receive_message(
             QueueUrl=queue.url,
             AttributeNames=['All'],
@@ -35,10 +36,14 @@ def process_messages(number_of_movies):
         )
 
         try:
+            # https://stackoverflow.com/questions/252703/
             messages.extend(response['Messages'])
         except KeyError:
+            # "Messages" does not exist in the response object aka no more messages to process
+            # therefore end the loop and return messages
             break
 
+        # todo: figure out this syntax because I still don't read list comprehensions very easily
         entries = [
             {'Id': msg['MessageId'], 'ReceiptHandle': msg['ReceiptHandle']}
             for msg in response['Messages']
@@ -49,7 +54,8 @@ def process_messages(number_of_movies):
         print(f"{messages_remaining} messages remaining")
 
         response = sqs_client.delete_message_batch(
-            QueueUrl=queue.url, Entries=entries
+            QueueUrl=queue.url,
+            Entries=entries
         )
 
         if len(response['Successful']) != len(entries):

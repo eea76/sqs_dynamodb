@@ -1,5 +1,4 @@
 def delete_item(table, table_name):
-
     job_id = input("enter the job_id to delete: ")
 
     print('attempting to delete')
