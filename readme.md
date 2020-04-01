@@ -81,7 +81,9 @@
 - Figure it out
   
 ---
-#### Optional stuff with the `aws` cli
+#3## Optional stuff with the `aws` cli
+
+#### Since this project keeps all created resources safely on your local machine (and therefore free of AWS usage costs), we don't have the benefit of the AWS web console, which is a GUI that lets you perform all kinds of individual tasks with AWS resources. Locally, we have to do this using the command line
 ##### Query the database
 - To see the messages that made it from the queue to the Dynamo table (as well as seeing other table data), you can perform a scan operation in the console:
     - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569`
