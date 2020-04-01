@@ -37,6 +37,9 @@
 ---
 
 #### Run program
+- Just do `python3 main.py` in your terminal and if localstack is running and all the local AWS resources were created, the script should run and print out progress messages until the program completes. Below is a step-by-step explanation of every step in the process
+- Alternatively you can specify the script path in PyCharm/IntelliJ as `/main.py` and then run the program from there. Way easier than using the terminal.
+
 ##### Generate
 - Initialize the SQS resource using boto3: get the queue named `movie-load.fifo`
 - Create a job_id and specify the number of movies to generate
