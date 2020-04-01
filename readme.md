@@ -67,6 +67,9 @@
     - assign `dynamo_item` to an instance of DynamoItem, which takes job_id and the messages that were returned from `process_messages`
     - writes this item to the table
     - items cannot be more than 400kb each (Dynamo limitation).
+        - to do: figure out how to break up items that are > 400kb
+            - how?
+                - no idea yet
     
 
 ##### Write the message payload to an S3 bucket
