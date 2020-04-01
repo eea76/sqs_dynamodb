@@ -29,6 +29,8 @@ def process_messages(number_of_movies):
 
         # todo: enable long-polling support
         # https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html
+
+        # https: // docs.aws.amazon.com / cli / latest / reference / sqs / receive - message.html
         response = sqs_client.receive_message(
             QueueUrl=queue.url,
             AttributeNames=['All'],
@@ -53,10 +55,12 @@ def process_messages(number_of_movies):
         messages_remaining = number_of_movies - messages_processed
         print(f"{messages_remaining} messages remaining")
 
+        # https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_DeleteMessageBatch.html
         response = sqs_client.delete_message_batch(
             QueueUrl=queue.url,
             Entries=entries
         )
+
 
         if len(response['Successful']) != len(entries):
             raise RuntimeError(
