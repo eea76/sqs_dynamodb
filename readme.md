@@ -1,5 +1,6 @@
 ### In an effort to learn how various AWS services work, I've written a small project that
-- generates data, sends that data to an AWS SQS queue
+- generates data
+- sends that data to an AWS SQS queue
 - receives that data in the form of a message 
 - writes that message to a DynamoDB table
 - writes the generated payload to an s3 bucket
