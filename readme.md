@@ -89,6 +89,8 @@
 - Calls the `write_to_s3` function
     - Put the `bucket_message` onto s3 in a json file with the naming convention `[job_id].json`
 
+---
+
 ##### Next steps
 - Implement dead-letter queues in the case of message failure
     - Figure it out
