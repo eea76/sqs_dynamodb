@@ -50,6 +50,11 @@
 - Just do `python3 main.py` in your terminal and if localstack is running and all the local AWS resources were created, the script should run and print out progress messages until the program completes. Below is a step-by-step explanation of every step in the process
 - Alternatively you can specify the script path in PyCharm/IntelliJ as `/main.py` and then run the program from there. Way easier than using the terminal.
 
+
+#### This program runs fairly quickly and there isn't much in the way of feedback, but this project is meant to serve as an illustration of how AWS services work together. Therefore in this context inspecting the code and learning how the pieces work together will ultimately be more useful than what the program produces (a json file of a bunch of fake movies sitting on your hard drive 😉)
+
+---
+
 ##### Generate
 - A job_id is created
 - Specify the number of movies to generate (please don't do anything insane like 1000; it will blow up the database and could also potentially screw up SQS - obviously AWS can handle payloads of messages much greater than 1000, but this project probably cannot until I build in some checks and safeguards)
