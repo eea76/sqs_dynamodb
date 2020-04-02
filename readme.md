@@ -92,7 +92,7 @@
 ---
 
 ##### Next steps
-- Implement dead-letter queues in the case of message failure
+- Implement dead-letter queues in the case of a message failure
     - Figure it out
 - Long-polling support
     - Should not be too hard
