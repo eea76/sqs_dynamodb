@@ -89,8 +89,14 @@
 - Calls the `write_to_s3` function
     - Put the `bucket_message` onto s3 in a json file with the naming convention `[job_id].json`
 
-##### Next steps: Implement dead-letter queues in the case of message failure
-- Figure it out
+##### Next steps
+- Implement dead-letter queues in the case of message failure
+    - Figure it out
+- Long-polling support
+    - Should not be too hard
+- Change the data generation method to a generator (aka use `yield` instead of `return`). This will process the data as it's being generated instead of the end result all at once
+- Break up objects > 400kb so a job of any size can be written to Dynamo
+
 
 ---
 ### Optional stuff with the `aws` cli
