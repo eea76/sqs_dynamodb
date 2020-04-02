@@ -51,7 +51,7 @@
 - Alternatively you can specify the script path in PyCharm/IntelliJ as `/main.py` and then run the program from there. Way easier than using the terminal.
 
 
-#### This program runs fairly quickly and there isn't much in the way of feedback, but this project is meant to serve as an illustration of how AWS services work together. Therefore in this context inspecting the code and learning how the pieces work together will ultimately be more useful than what the program produces (a json file of a bunch of fake movies sitting on your hard drive 😉)
+#### This program runs fairly quickly and there isn't much in the way of feedback, but this project is meant to serve as an illustration of how AWS services work together. Therefore in this context inspecting the code and learning how the pieces are connected will ultimately be more useful than what the program produces (a json file of a bunch of fake movies sitting on your hard drive 😉)
 
 ---
 
