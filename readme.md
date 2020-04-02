@@ -97,7 +97,12 @@
 - Change the data generation method to a generator (aka use `yield` instead of `return`). This will process the data as it's being generated instead of the end result all at once
 - Break up objects > 400kb so a job of any size can be written to Dynamo
 
-
+##### Why use queues at all and not simply write the generated data directly to the database?
+- Ultimately this is the question I wanted to answer when creating this project, so I'm still learning about this concept.
+- Queues act as a buffer between the data producer and the data consumer
+- If the producer produces data faster than the consumer can consume it, you need a queue to moderate the flow of data
+- Queues also provide the ability to scale easily.
+- Also incidentally, a queue message contains more data than the generated payload that was sent to it, so more metrics are available to the consumer of the data (timestamps, success/failure rates, etc)
 ---
 ### Optional stuff with the `aws` cli
 
