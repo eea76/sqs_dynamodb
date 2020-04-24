@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'python3 manage.py runserver'
+                sh 'echo "Hello there please thanks"'
             }
         }
     }
