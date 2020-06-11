@@ -1,4 +1,4 @@
-### In an effort to learn how various AWS services work, I've written a small project that
+### In an effort to explain the fundamentals of several AWS services, I've written a small project that
 - generates data (movie objects with the following attributes):
     - title
     - year of release
@@ -25,7 +25,7 @@
 
 #### Docker and virtual environment
 - Because this project utilizes the python package `localstack` (which creates local AWS resources), it also requires Docker: https://www.docker.com/
-- Download and install the Docker client (explaining Docker goes beyond the scope of this tiny project; resources online are plentiful. It's part of this containerization idea which I really don't know much about yet)
+- Download and install the Docker client (explaining Docker goes beyond the scope of this tiny project; resources online are plentiful. Docker commands, Dockerfiles, etc will not be used in this project; it's just required for the `localstack` python package.
 - After starting Docker (it just runs in the background; see the menu bar icon to verify), initialize a virtualenv. An IDE like PyCharm/IntelliJ can automatically create a virtualenv, or to create one manually do `virtualenv -p python3 venv` while in the project root.
 - Activate the virtualenv if the IDE hasn't done so already: `source venv/bin/activate`
 - Install requirements: `pip3 install -r requirements.txt`
@@ -79,9 +79,7 @@
     - Assign `dynamo_item` to an instance of DynamoItem
     - Writes this item to the table
     - Items cannot be more than 400kb each (Dynamo limitation).
-        - To do: figure out how to break up items that are > 400kb
-            - How?
-                - No idea yet
+        - To do: break up items > 400kb
 
 
 ##### Write the message payload to an S3 bucket
@@ -93,14 +91,12 @@
 
 ##### Next steps
 - Implement dead-letter queues in the case of a message failure
-    - Figure it out
 - Long-polling support
     - Should not be too hard
 - Change the data generation method to a generator (aka use `yield` instead of `return`). This will process the data as it's being generated instead of the end result all at once
 - Break up objects > 400kb so a job of any size can be written to Dynamo
 
 ##### Why use queues at all and not simply write the generated data directly to the database?
-- Ultimately this is the question I wanted to answer when creating this project, so I'm still learning about this concept.
 - Queues act as a buffer between the data producer and the data consumer
 - If the producer produces data faster than the consumer can consume it, you need a queue to moderate the flow of data
 - Queues also provide the ability to scale easily.
@@ -108,7 +104,7 @@
 ---
 ### Optional stuff with the `aws` cli
 
-#### Since this project keeps all created resources safely on your local machine (and therefore free from AWS usage costs), we don't have the benefit of the AWS web console, which is a GUI that lets you perform all kinds of individual tasks with AWS resources. Locally, we have to do this using the command line
+#### Since this project keeps all created resources safely on our local machine (and therefore free from AWS usage costs), we don't have the benefit of the AWS web console, which is a GUI that lets us perform all kinds of individual tasks with AWS resources. Locally, we have to do this using the command line
 ##### Dynamo
 - List tables:
     - `aws --endpoint-url=http://localhost:4569 dynamodb list-tables`
