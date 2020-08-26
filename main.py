@@ -1,5 +1,6 @@
 import uuid
 import json
+import sys
 
 from data_load_message import DataLoadMessage
 from generate import generate_movies
@@ -13,7 +14,12 @@ def main():
     # generate
     job_id = str(uuid.uuid4())
     print(f"\njob id: {job_id}")
-    movies_to_generate = 1
+
+    try:
+        movies_to_generate = int(sys.argv[1])
+    except IndexError:
+        movies_to_generate = 1
+    
     movies_payloads = generate_movies(movies_to_generate)
     print(f"movies generated: {movies_to_generate}")
 
