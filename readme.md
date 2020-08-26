@@ -35,9 +35,9 @@
 - We're using localstack so we can do all this locally; otherwise we would need to create resources in AWS, which would incur usage costs.
 - Run `localstack start`
 - Once everything is Ready, open localstack_setup.sh, which is a list of shell script commands. If your IDE supports .sh scripts you can just run this file, or copy each command from it and run them individually in your terminal
-    - `aws --endpoint-url=http://localhost:4576 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
-    - `aws --endpoint-url=http://localhost:4569 dynamodb create-table --table-name movie-job-information --attribute-definitions AttributeName=job_id,AttributeType=S --key-schema AttributeName=job_id,KeyType=HASH --billing-mode PAY_PER_REQUEST &> /dev/null`
-    - `aws --endpoint-url=http://localhost:4572 s3 mb s3://movie-bucket`
+    - `aws --endpoint-url=http://localhost:4566 sqs create-queue --queue-name movie-load.fifo --attributes "FifoQueue=true"`
+    - `aws --endpoint-url=http://localhost:4566 dynamodb create-table --table-name movie-job-information --attribute-definitions AttributeName=job_id,AttributeType=S --key-schema AttributeName=job_id,KeyType=HASH --billing-mode PAY_PER_REQUEST &> /dev/null`
+    - `aws --endpoint-url=http://localhost:4566 s3 mb s3://movie-bucket`
 - What did these commands do?
     - We created a SQS Queue (specifically a FIFO queue: First-In First-Out) called `movie-load.fifo`, which is where we'll be sending and receiving messages (ie the generated movies)
     - We created a NoSQL DynamoDB table named `movie-job-information`, with job_id as the table's primary key
@@ -107,26 +107,26 @@
 #### Since this project keeps all created resources safely on our local machine (and therefore free from AWS usage costs), we don't have the benefit of the AWS web console, which is a GUI that lets us perform all kinds of individual tasks with AWS resources. Locally, we have to do this using the command line
 ##### Dynamo
 - List tables:
-    - `aws --endpoint-url=http://localhost:4569 dynamodb list-tables`
+    - `aws --endpoint-url=http://localhost:4566 dynamodb list-tables`
 - To see the messages that made it from the queue to the Dynamo table (as well as seeing other table data), you can perform a scan operation in the console:
-    - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569`
+    - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4566`
 - Alternatively you can output the result to a JSON file which will probably be easier to read (this can be a massive process depending on the table size):
-    - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4569 > table_scan.json`
+    - `aws dynamodb scan --table-name movie-job-information --endpoint-url=http://localhost:4566 > table_scan.json`
 
 ##### S3
 - List buckets
-    - `aws --endpoint-url=http://localhost:4572 s3 ls`
+    - `aws --endpoint-url=http://localhost:4566 s3 ls`
 - To obtain a list of all the files in the bucket:
-    - `aws s3 ls s3://movie-bucket --endpoint-url=http://localhost:4572`
+    - `aws s3 ls s3://movie-bucket --endpoint-url=http://localhost:4566`
 - To download a specific file from the bucket and see what the generated payload looks like:
     - replace `[desired job_id]` with the job_id
     - this downloads the file to the current directory (`.`):
-    - `aws s3 mv s3://movie-bucket/[desired job_id].json . --endpoint-url=http://localhost:4572`
+    - `aws s3 mv s3://movie-bucket/[desired job_id].json . --endpoint-url=http://localhost:4566`
 
 ##### Queues
 - List queues:
-    - `aws sqs list-queues --endpoint-url=http://localhost:4576`
+    - `aws sqs list-queues --endpoint-url=http://localhost:4566`
 - List messages in a queue (per the thorough SQS documentation, running this command may return an empty response even if you know for certain the queue is not empty; better to run this command programmatically)
-    - `aws sqs receive-message --queue-url http://localhost:4576/queue/movie-load.fifo --endpoint-url=http://localhost:4576 --max-number-of-messages 10`
+    - `aws sqs receive-message --queue-url http://localhost:4566/queue/movie-load.fifo --endpoint-url=http://localhost:4566 --max-number-of-messages 10`
 - You can purge the queue as a last ditch effort to ensure it's completely empty. A queue will typically be empty approx 60 seconds after the command is run:
-    - `aws sqs purge-queue --queue-url http://localhost:4576/queue/movie-load.fifo --endpoint-url=http://localhost:4576`
+    - `aws sqs purge-queue --queue-url http://localhost:4566/queue/movie-load.fifo --endpoint-url=http://localhost:4566`

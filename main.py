@@ -30,19 +30,19 @@ def main():
         send_messages_to_queue(job_id, data_load_message.toJSON())
 
     # receive message
-    received_messages = process_messages(movies_to_generate)
+    # received_messages = process_messages(movies_to_generate)
 
     # write to database
     # write_to_dynamo(job_id, received_messages)
 
     # write payload to s3
-    write_to_s3(received_messages, job_id)
+    # write_to_s3(received_messages, job_id)
 
     # download this job from s3
-    download_json_from_s3(job_id)
+    # download_json_from_s3(job_id)
 
     # this operation is potentially foolish
-    download_all_s3_contents()
+    # download_all_s3_contents()
 
 
 if __name__ == '__main__':
