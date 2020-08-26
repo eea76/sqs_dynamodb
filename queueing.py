@@ -4,8 +4,8 @@ import logging
 
 # logging.basicConfig(level=logging.DEBUG)
 
-sqs = boto3.resource('sqs', region_name='us-east-1', endpoint_url="http://localhost:4576")
-sqs_client = boto3.client('sqs', region_name="us-east-1", endpoint_url="http://localhost:4576")
+sqs = boto3.resource('sqs', region_name='us-east-1', endpoint_url="http://localhost:4566")
+sqs_client = boto3.client('sqs', region_name="us-east-1", endpoint_url="http://localhost:4566")
 queue = sqs.get_queue_by_name(QueueName='movie-load.fifo')
 
 
